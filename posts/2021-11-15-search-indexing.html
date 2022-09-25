@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Allen Kamp">
+<meta name="dcterms.date" content="2021-11-15">
+<meta name="description" content="How to influence search engine indexing through Google Search Console and Meta-Tags.">
+
+<title>inferred.ai - Managing Search - How to remove pages from search engines</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">inferred.ai</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Rebolforces"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://huggingface.co/rebolforces">HF</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/allen-kamp-47739547/"><i class="bi bi-linkedin" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Managing Search - How to remove pages from search engines</h1>
+                  <div>
+        <div class="description">
+          How to influence search engine indexing through Google Search Console and Meta-Tags.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">SEO</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Allen Kamp </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 15, 2021</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-started-with-search-engine-console." id="toc-getting-started-with-search-engine-console." class="nav-link active" data-scroll-target="#getting-started-with-search-engine-console.">Getting Started with Search Engine Console.</a></li>
+  <li><a href="#sharing-granting-access" id="toc-sharing-granting-access" class="nav-link" data-scroll-target="#sharing-granting-access">Sharing / Granting Access</a></li>
+  <li><a href="#removing-urls" id="toc-removing-urls" class="nav-link" data-scroll-target="#removing-urls">Removing Urls</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Search Engines like Google &amp; Bing provide free tools to allow a webmaster to monitor, submit and withdraw/remove pages from search listings. As Google is the largest volume of search queries and traffic, we will show how to use their tool, but Bing also has similar <a href="https://www.bing.com/webmasters/about">features and processes</a>.</p>
+<p>After running through these instructions. - You will have your web-property added to a Google Search Console.</p>
+<ul>
+<li><p>Know how to allow another person to access the same reporting through their own Google Search Console account.</p></li>
+<li><p>Know the options and processes for removing content from search engines (primarily Google).</p></li>
+<li><p>Know how to prevent pages from being indexed.</p></li>
+</ul>
+<p>We will <strong>not</strong> cover SEO topics or how to improve your search ranking.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://search.google.com/search-console/about"><img src="2021-11-15-search-indexing_files/figure-html/dea8bf0e-50b6-4d26-a499-2101d112fde3.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">gsc-01.png</figcaption><p></p>
+</figure>
+</div>
+<section id="getting-started-with-search-engine-console." class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-with-search-engine-console.">Getting Started with Search Engine Console.</h2>
+<ul>
+<li><p>Sign up for <a href="https://search.google.com/search-console">Google Search Console</a>.</p></li>
+<li><p>Add the property that you are interested in monitoring. If you are not asked to add one when you first sign in, use the menu on top left allows you to search for registered and add new ones <code>+ Add Property</code>.</p></li>
+<li><p>Select Property Type. Initially, I recommend using <code>URL prefix</code> rather than the new <code>Domain</code> method, because it allows more granularity if you wish to grant/share access, and also offers more <a href="https://support.google.com/webmasters/answer/9008080">verification options</a>.</p></li>
+<li><p>Verify the property using the option that you prefer. From experience I have found that the dns option (adding a specified txt entry) is often the fastest, providing you have access to your domain dns settings.</p></li>
+</ul>
+<p>Once you have been granted access, you can now explore the options in the left-hand menu. If this is the first time this domain has been added to the Search Engine Console, you may have to wait for 24 hours before the reports are populated. (There is also <a href="https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python#step_2_install_the_google_client_library">Python API</a> to access some of this data. )</p>
+</section>
+<section id="sharing-granting-access" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-granting-access">Sharing / Granting Access</h2>
+<p>Sadly, this is where we see Google product silos and poor integration with legacy systems in action. Mind the cobwebs, we will see the glympses of the old <code>webmaster tools</code> product here, that was <em>replaced</em> by <code>search engine console</code> in 2015. <small>Google has a habit of replacing products without reaching feature parity, and then re-using the old bits “temporarily/forever” for the use-cases they forgot to cover before the team disbanded.</small></p>
+<p><strong>To grant access for a given property (site).</strong> So that other (specified) people can see this site in their search console tool. (You retain control to remove access). This is the best way to grant access for consultants.</p>
+<ul>
+<li><p>Go to Settings near bottom of the left menu.</p></li>
+<li><p>Click <code>Users and Permission</code></p></li>
+<li><p>Click the three vertical dots on the right of your owner listing. Select <code>Manage Property Owners</code></p></li>
+<li><p>Click <code>Verification details</code> of the property</p></li>
+<li><p>Click <code>Add an owner</code> and enter the relevant gmail email account.</p></li>
+</ul>
+<p>If you check the <code>Verification Details</code> you will see their permission details will be by delegation, and you have the option to <code>Unverify</code> them. They should now be able to see the property when then log into <a href="https://search.google.com/search-console">Google Search Console</a></p>
+<hr>
+</section>
+<section id="removing-urls" class="level2">
+<h2 class="anchored" data-anchor-id="removing-urls">Removing Urls</h2>
+<blockquote class="blockquote">
+<p>Why would I want to remove a url from search indexes? A Common reason is<br>
+that the page is for an older product, but Google is giving it too much emphasis in search results vs newer content. You aren’t ready to remove the pages from the site and you still want them accessible to existing users, but you want new people to discover the new product when they search. If the old product was popular, it may continue to outrank the newer one, possible even get listed in the SiteLinks section for the site’s search results. The only real option here is removal from the search index.</p>
+</blockquote>
+<p>The <code>Removals</code> option in the left menu, will allow you to quickly remove index pages temporarily, or flag outdated content. Whilst this sounds useful. In many cases it is only a short term remedy as Google will re-index on the next crawl.</p>
+<p>The long-term method is to add <a href="https://developers.google.com/search/docs/advanced/crawling/special-tags">meta tags</a> to the pages to give search engines a strong hint. Good search engines will obey, and the page will be removed in time (may take up to 14 days depending on the Search Engine refresh cycle.)</p>
+<p>The two main meta tags are <code>noindex</code> and <code>nofollow</code>.</p>
+<ul>
+<li><p><strong>noindex</strong> - Do not show this page, media, or resource in search results</p></li>
+<li><p><strong>nofollow</strong> - Do not follow the links on this page. If you don’t specify this directive, Google may use the links on the page to discover those linked pages.</p></li>
+</ul>
+<p>To prevent (well-behaved) search engine web crawlers from indexing a page on your site, add the tags into the <code>&lt;head&gt;..&lt;/head&gt;</code> of the page/s you wish to remove from the index.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"robots"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"noindex"</span><span class="kw">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"robots"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"nofollow"</span><span class="kw">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or combine them</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;meta</span> <span class="er">name</span><span class="ot">=</span><span class="st">"robots"</span> <span class="er">content</span><span class="ot">=</span><span class="st">"noindex,nofollow"</span><span class="kw">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you want to do this for all pages on a particular site, you could add this to the your page template.</p>
+<section id="other-methods---meta-tags-in-response-header." class="level4">
+<h4 class="anchored" data-anchor-id="other-methods---meta-tags-in-response-header.">Other Methods - meta tags in response header.</h4>
+<p>See <a href="https://developers.google.com/search/docs/advanced/robots/robots_meta_tag">Add meta tag in response header</a> for more header-tag options -</p>
+<pre class="code"><code>HTTP/1.1 200 OK
+(…)
+X-Robots-Tag: noindex, nofollow
+(…)</code></pre>
+<p>This may be an option if you have access to edit/add to the response header of your server. The advantage of this method is that is requires now modification to any pages, but <strong>be warned</strong> it will apply to all pages, (unless your server has way method to selectively apply).</p>
+<p>I am not sure if this is an option with regular github.io pages, but if using a custom domain with gihub pages and cloudflare, you can try <a href="https://developers.cloudflare.com/pages/how-to/add-custom-http-headers">Custom Headers with Cloudflare workers</a></p>
+</section>
+<section id="other-methods---robots.txt" class="level4">
+<h4 class="anchored" data-anchor-id="other-methods---robots.txt">Other Methods - Robots.txt</h4>
+<p>Another method to control crawler access, without altering the pages, is to use a <a href="http://www.robotstxt.org/">robots.txt</a> file. But it is the <strong>wrong mechanism</strong> to use to removing existing indexed pages. As Google as <a href="https://developers.google.com/search/docs/advanced/robots/intro">says</a></p>
+<blockquote class="blockquote">
+<p>A robots.txt file tells search engine crawlers which URLs the crawler can access on your site. This is used mainly to avoid overloading your site with requests; it is not a mechanism for keeping a web page out of Google. To keep a web page out of Google, block indexing with noindex or password-protect the page.</p>
+</blockquote>
+</section>
+<section id="other-methods---site-map" class="level4">
+<h4 class="anchored" data-anchor-id="other-methods---site-map">Other Methods - Site Map</h4>
+<p>Sitemaps are great way allow search engine to discover all of your pages, and hint at the emphasis for each page you list. However they are not effective for removing pages from the search index. You can find out more about sitemaps here (What is a Sitemap?)[https://developers.google.com/search/docs/advanced/sitemaps/overview].</p>
+<hr>
+<p>Reference: <a href="https://developers.google.com/search/docs/advanced/crawling/remove-information">Remove a page hosted on your site from Google</a></p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,5 @@
+/* css styles */
+.bi-huggingfaceSVG::before { content: url(https://huggingface.co/front/assets/huggingface_logo-noborder.svg); }
+.bi-huggingface::before { content: '🤗'; }
+
+
