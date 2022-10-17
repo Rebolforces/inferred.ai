@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/ddpm-kamon-01.html",
       "/posts/2021-10-21-resources.html",
       "/posts/2021-11-15-search-indexing.html",
       "/posts/2021-11-08-snippets.html",

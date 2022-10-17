@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Allen Kamp">
+<meta name="dcterms.date" content="2022-10-17">
+<meta name="description" content="Training a (DDPM) Denoising Diffusion Probabilistic Model on a Kamon dataset">
+
+<title>inferred.ai - Generating Kamon Designs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">inferred.ai</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Rebolforces"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://huggingface.co/rebolforces">HF</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/allen-kamp-47739547/"><i class="bi bi-linkedin" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Generating Kamon Designs</h1>
+                  <div>
+        <div class="description">
+          Training a (DDPM) Denoising Diffusion Probabilistic Model on a Kamon dataset
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">generative</div>
+                <div class="quarto-category">fastai</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Allen Kamp </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 17, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#generating-kamon-designs" id="toc-generating-kamon-designs" class="nav-link active" data-scroll-target="#generating-kamon-designs">Generating Kamon Designs</a>
+  <ul class="collapse">
+  <li><a href="#using-ddpm-denoising-diffusion-probabilistic-models" id="toc-using-ddpm-denoising-diffusion-probabilistic-models" class="nav-link" data-scroll-target="#using-ddpm-denoising-diffusion-probabilistic-models">Using (DDPM) Denoising Diffusion Probabilistic Models</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="generating-kamon-designs" class="level1">
+<h1>Generating Kamon Designs</h1>
+<section id="using-ddpm-denoising-diffusion-probabilistic-models" class="level3">
+<h3 class="anchored" data-anchor-id="using-ddpm-denoising-diffusion-probabilistic-models">Using (DDPM) Denoising Diffusion Probabilistic Models</h3>
+<p>Last week I began the new ‘<a href="https://www.fast.ai/posts/part2-2022.html">From Deep Learning Foundations to Stable Diffusion</a>’ course , which is part 2 of FastAi’s Practical Deep Learning for Coders series. The first lesson kicked off quickly, getting into the sizzle of Stable Diffusion, the phenomenal model which empowers people to <a href="https://www.howtogeek.com/830179/how-to-run-stable-diffusion-on-your-pc-to-generate-ai-images/">generate images of fantastic beauty</a> on moderately powered home computers.</p>
+<p>I decided to train my own <a href="https://en.wikipedia.org/wiki/Mon_(emblem)">Kamon</a> generator. I completed building a training set that I had gathered last year for a GAN project. The Kamon Dataset can be found <a href="https://github.com/Rebolforces/kamondataset">here</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ddpm-kamon-01_files/figure-html/18f440d9-3e79-4b80-a4e1-5a83b718b264.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">mon-white-sample.png</figcaption><p></p>
+</figure>
+</div>
+<p>Using this <a href="https://github.com/fastai/fastdiffusion/blob/master/nbs/Diffusion_models_with_fastai.ipynb">Diffusion_models_with_fastai notebook</a> from Tanishq Abraham, with a slight modification to use my Kamon dataset (instead of mnist) and adjusting a few settings to fit on my 3090 card.</p>
+<pre><code>bs = 16 # batch size
+size = 224 # image size</code></pre>
+<p>I also found it was necessary to skip the learning rate finder. <code>ddpm_learner.lr_find()</code> as that process would always run out of cuda memory. For training, I used a learner rate of ‘3e-4’ and pushed fit_one_cycle to 100 epochs.</p>
+<pre><code>ddpm_learner.fit_one_cycle(100, 3e-4)</code></pre>
+<p>On average, training this model took 2.5 minutes per epoch. (Far better than days spent last year trying to do similar with Stylegan2 only to end in model collapse.)</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<section id="not-the-best-but-certainly-not-the-worst." class="level4">
+<h4 class="anchored" data-anchor-id="not-the-best-but-certainly-not-the-worst.">Not the best, but certainly not the worst.</h4>
+<p>It has managed some nice clean lines, boundary areas and a few motifs, and very little noise. As I learn more I will revisit this project and improve it.</p>
+<p>A few batches of generated images. <img src="ddpm-kamon-01_files/figure-html/fb2a116c-c110-443e-8693-6e0435ac417b.png" class="img-fluid" alt="kamon-ddpm-01.png"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ddpm-kamon-01_files/figure-html/7cdf42d8-104f-47fd-a4b8-9494d4157d37.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">kamon-ddpm-02.png</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ddpm-kamon-01_files/figure-html/89fef8b8-e92e-4dbe-961c-cc38bd9fcfa1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">kamon-ddpm-03.png</figcaption><p></p>
+</figure>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
